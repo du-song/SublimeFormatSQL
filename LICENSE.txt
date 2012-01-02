@@ -1,0 +1,1 @@
+python-sqlparse and this code is on 2-clauses BSD http://www.opensource.org/licenses/bsd-license.php

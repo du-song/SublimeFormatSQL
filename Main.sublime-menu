@@ -1,0 +1,20 @@
+[
+    {
+        "id": "selection",
+        "caption": "Selection",
+        "children":
+        [
+            {
+                "id": "format",
+                "caption": "Format",
+                "children":
+                [
+                    {
+                        "caption": "Format SQL Statement",
+                        "command": "format_sql"
+                    }
+                ]
+            }
+        ]
+    }
+]
