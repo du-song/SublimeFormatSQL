@@ -27,4 +27,4 @@ class FormatSqlCommand(sublime_plugin.TextCommand):
 		indent_char = " " #TODO indent by TAB (currently not supported in python-sqlparse)
 		indent_size = int(settings.get("tab_size")) if indent_char == " " else 1 
 		s = s.encode("utf-8")
-		return sqlparse.format(s, keyword_case="upper", reindent=True, indent_width=indent_size)
+		return sqlparse.format(s, keyword_case="upper", identifier_case="lower", reindent=True, indent_width=indent_size)
