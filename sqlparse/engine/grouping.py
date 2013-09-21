@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-
+from __future__ import absolute_import
 import itertools
 
-from sqlparse import sql
-from sqlparse import tokens as T
+from .. import sql
+from .. import tokens as T
 
 try:
     next

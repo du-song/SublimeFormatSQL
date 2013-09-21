@@ -11,11 +11,12 @@
 # http://pygments.org/
 # It's separated from the rest of pygments to increase performance
 # and to allow some customizations.
-
+from __future__ import absolute_import
+from __future__ import unicode_literals
 import re
 
-from sqlparse import tokens
-from sqlparse.keywords import KEYWORDS, KEYWORDS_COMMON
+from . import tokens
+from .keywords import KEYWORDS, KEYWORDS_COMMON
 
 
 class include(str):
@@ -79,7 +80,7 @@ class LexerMeta(type):
 
             try:
                 rex = re.compile(tdef[0], rflags).match
-            except Exception, err:
+            except Exception as err:
                 raise ValueError(("uncompilable regex %r in state"
                                   " %r of %r: %s"
                                   % (tdef[0], state, cls, err)))
@@ -150,9 +151,7 @@ class LexerMeta(type):
         return type.__call__(cls, *args, **kwds)
 
 
-class Lexer(object):
-
-    __metaclass__ = LexerMeta
+class Lexer(object, metaclass=LexerMeta):
 
     encoding = 'utf-8'
     stripall = False
@@ -209,7 +208,7 @@ class Lexer(object):
         self.filters = []
 
     def add_filter(self, filter_, **options):
-        from sqlparse.filters import Filter
+        from .filters import Filter
         if not isinstance(filter_, Filter):
             filter_ = filter_(**options)
         self.filters.append(filter_)
@@ -223,7 +222,7 @@ class Lexer(object):
         Also preprocess the text, i.e. expand tabs and strip it if
         wanted and applies registered filters.
         """
-        if not isinstance(text, unicode):
+        if not isinstance(text, str):
             if self.encoding == 'guess':
                 try:
                     text = text.decode('utf-8')
