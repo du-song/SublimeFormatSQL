@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-
-from sqlparse.sql import Statement, Token
-from sqlparse import tokens as T
+from __future__ import absolute_import
+from ..sql import Statement, Token
+from .. import tokens as T
 
 
 class TokenFilter(object):

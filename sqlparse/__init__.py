@@ -4,7 +4,7 @@
 # the BSD License: http://www.opensource.org/licenses/bsd-license.php.
 
 """Parse SQL statements."""
-
+from __future__ import absolute_import
 
 __version__ = '0.1.3'
 
@@ -14,9 +14,9 @@ class SQLParseError(Exception):
 
 
 # Setup namespace
-from sqlparse import engine
-from sqlparse import filters
-from sqlparse import formatter
+from . import engine
+from . import filters
+from . import formatter
 
 
 def parse(sql):
@@ -55,7 +55,7 @@ def split(sql):
     return [unicode(stmt) for stmt in stack.run(sql)]
 
 
-from sqlparse.engine.filter import StatementFilter
+from .engine.filter import StatementFilter
 def split2(stream):
     splitter = StatementFilter()
     return list(splitter.process(None, stream))
