@@ -4,9 +4,9 @@
 # the BSD License: http://www.opensource.org/licenses/bsd-license.php.
 
 """SQL formatter"""
-
-from sqlparse import SQLParseError
-from sqlparse import filters
+from __future__ import absolute_import
+from . import SQLParseError
+from . import filters
 
 
 def validate_options(options):

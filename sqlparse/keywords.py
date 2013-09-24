@@ -1,4 +1,5 @@
-from sqlparse import tokens
+from __future__ import absolute_import
+from . import tokens
 
 KEYWORDS = {
     'ABORT': tokens.Keyword,

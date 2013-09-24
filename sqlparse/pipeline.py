@@ -2,7 +2,7 @@
 #
 # This module is part of python-sqlparse and is released under
 # the BSD License: http://www.opensource.org/licenses/bsd-license.php.
-
+from __future__ import absolute_import
 from types import GeneratorType
 
 

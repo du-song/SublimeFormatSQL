@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
 """This module contains classes representing syntactical elements of SQL."""
-
+from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import unicode_literals
 import re
+import sys
 
-from sqlparse import tokens as T
+from . import tokens as T
 
 
 class Token(object):
@@ -23,7 +26,10 @@ class Token(object):
         self.parent = None
 
     def __str__(self):
-        return unicode(self).encode('utf-8')
+        if sys.version_info > (3, 0):
+            return self.__unicode__()
+        else:
+            return unicode(self).encode('utf-8')
 
     def __repr__(self):
         short = self._get_repr_value()
@@ -35,13 +41,13 @@ class Token(object):
 
     def to_unicode(self):
         """Returns a unicode representation of this object."""
-        return unicode(self)
+        return str(self)
 
     def _get_repr_name(self):
         return str(self.ttype).split('.')[-1]
 
     def _get_repr_value(self):
-        raw = unicode(self)
+        raw = str(self)
         if len(raw) > 7:
             short = raw[:6] + u'...'
         else:
@@ -67,7 +73,7 @@ class Token(object):
         type_matched = self.ttype is ttype
         if not type_matched or values is None:
             return type_matched
-        if isinstance(values, basestring):
+        if isinstance(values, str):
             values = set([values])
         if regex:
             if self.ttype is T.Keyword:
@@ -136,10 +142,13 @@ class TokenList(Token):
         Token.__init__(self, None, None)
 
     def __unicode__(self):
-        return ''.join(unicode(x) for x in self.flatten())
+        return ''.join(str(x) for x in self.flatten())
 
     def __str__(self):
-        return unicode(self).encode('utf-8')
+        if sys.version_info > (3, 0):
+            return self.__unicode__()
+        else:
+            return unicode(self).encode('utf-8')
 
     def _get_repr_name(self):
         return self.__class__.__name__
@@ -152,9 +161,13 @@ class TokenList(Token):
                 pre = ' +-'
             else:
                 pre = ' | '
-            print '%s%s%d %s \'%s\'' % (indent, pre, idx,
-                                        token._get_repr_name(),
-                                        token._get_repr_value())
+            print("%s%s%d %s '%s'" % (
+                indent,
+                pre,
+                idx,
+                token._get_repr_name(),
+                token._get_repr_value()
+            ))
             if (token.is_group() and (max_depth is None or depth < max_depth)):
                 token._pprint_tree(max_depth, depth + 1)
 
