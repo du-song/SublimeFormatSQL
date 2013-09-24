@@ -1,0 +1,3 @@
+[submodule "sqlparse"]
+	path = sqlparse
+	url = https://github.com/andialbrecht/sqlparse.git
