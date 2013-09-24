@@ -1,8 +1,11 @@
 from __future__ import absolute_import
+
+import sys
 import sublime
 import sublime_plugin
 
 try:
+    sys.path.append('./sqlparse')
     from .sqlparse import format
 except ValueError:
     from sqlparse import format
